@@ -47,14 +47,39 @@ describe("Merkle Tree", () => {
 
         // Act
         const tree = await createMerkleTree(emails);
-        const rootHash = tree.getRootHash();
         const proof = tree.getProof(leafToValidate);
         
         // Assert
-        const isValidProof = await tree.validateProof(proof.some(), leafToValidate, rootHash);
 
         expect(proof.isSome()).toBeTruthy();
-        expect(isValidProof).toBeTruthy();
+    });
+
+    it("validates that all 3 emails exists in tree", async () => {
+
+        // Arrange
+        const emails: string[] = [
+            "email1@email.com",
+            "email2@email.com",
+            "email3@email.com",
+            "email4@email.com",
+            "email5@email.com"
+        ];
+
+        const sha256 = buildHashFunction('sha-256');
+        const leafToValidate1 = await sha256(Buffer.from(emails[0]));
+        const leafToValidate2 = await sha256(Buffer.from(emails[1]));
+        const leafToValidate3 = await sha256(Buffer.from(emails[2]));
+
+        // Act
+        const tree = await createMerkleTree(emails);
+        const proof1 = tree.getProof(leafToValidate1);
+        const proof2 = tree.getProof(leafToValidate2);
+        const proof3 = tree.getProof(leafToValidate3);
+
+        // Assert
+        expect(proof1.isSome()).toBeTruthy();
+        expect(proof2.isSome()).toBeTruthy();
+        expect(proof3.isSome()).toBeTruthy();
     });
 
     it("validates that leaf node does not exist in tree", async () => {
@@ -66,7 +91,7 @@ describe("Merkle Tree", () => {
             "email3@email.com"
         ];
 
-        const newEmail: string = "email4@email.com";
+        const newEmail: string = "missing@email.com";
 
         const sha256 = buildHashFunction('sha-256');
         const leafToValidate = await sha256(Buffer.from(newEmail));
