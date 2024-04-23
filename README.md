@@ -26,17 +26,16 @@ A Merkel tree is built from the bottom up, and the process of constructing a Mer
 2. **Pair up the hashes**: The hashes are then paired up. If there is an odd number of hashes, the last hash is duplicated.
 3. **Hash the pairs**: Each pair of hashes is concatenated and then hashed again to create the parent node.
 4. **Repeat**: Steps 2 and 3 are repeated until there is only one hash left, which becomes the root of the Merkle tree.
-5. **Store the tree**: The tree is typically stored with the root node at the top and each layer of child nodes below it.
 
 Remember, any change in the input data will result in a change in the root hash, allowing efficient and secure verification of large data structures.
 
 In the example below we show how to create a Merkel tree from a list of emails.
 
-![merkle-tree-example-with-emails]()
+![merkle-tree-example-with-emails](img/merkle-tree-example-with-emails.png)
 
-Notice that the value for the last leaf is duplicated because the example uses an odd number of inputs.
+**Important:** Notice that the value for the last leaf is duplicated because the example uses an odd number of inputs.
 
-Now that you understand how a Merkel tree is built we can focus on its capabilities. Let's look into **Merkle Proofs**.
+Now that you understand how a Merkel tree is built we can focus on its capabilities. Let's look into Merkle Proofs.
 
 ## Merkle Proofs
 
@@ -44,14 +43,12 @@ A Merkle Proof, also known as a Merkle Path, is a crucial component of a Merkle 
 
 The Merkle Proof is a sequence of hashes from the root of the tree to the specific leaf node. This sequence, along with the necessary sibling nodes for hash calculations, forms the proof of inclusion. The sibling nodes are required because each parent node in a Merkle tree is a hash of its two child nodes. To compute the hash of a parent node, you need both child nodes.
 
-![merkle-proof-example-with-emails]()
+![merkle-proof-example-with-emails](img/merkle-proof-example-with-emails.png)
 
 To verify the data using a Merkle Proof, the recipient starts with the specific leaf node and the sibling node provided in the proof. They hash these two nodes together to get the hash of the parent node. They then move up the tree, hashing each provided node with its sibling, until they reach the root. If the calculated root matches the provided root, the data is verified as being included in the set.
 
-![merkle-proof-validation-with-emails]()
-
-In essence, the Merkle Proof leverages the unique properties of the Merkle tree to provide a reliable and efficient way to prove the inclusion of a specific piece of data in a set, without needing to have the entire data set. This makes it particularly useful in distributed systems and blockchain technology where efficiency and data integrity are paramount.
+![merkle-proof-validation-with-emails](img/merkle-proof-validation-with-emails.png)
 
 ## Wrapping up
 
-Merkle trees play a vital role in computer science and blockchain systems. They enable swift and secure verification of the integrity of large data sets, like those in blockchain systems. As blockchain technology continues to gain traction, I believe Merkle trees will remain instrumental in maintaining the security and efficiency of these systems.
+In essence, the Merkle Proof leverages the unique properties of the Merkle tree to provide a reliable and efficient way to prove the inclusion of a specific piece of data in a set, without needing to have the entire data set. This makes it particularly useful in distributed systems and blockchain technology where efficiency and data integrity are paramount.
