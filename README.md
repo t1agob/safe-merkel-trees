@@ -52,3 +52,5 @@ To verify the data using a Merkle Proof, the recipient starts with the specific 
 ## Wrapping up
 
 In essence, the Merkle Proof leverages the unique properties of the Merkle tree to provide a reliable and efficient way to prove the inclusion of a specific piece of data in a set, without needing to have the entire data set. This makes it particularly useful in distributed systems and blockchain technology where efficiency and data integrity are paramount.
+
+For a concrete implementation of the use case represented in the examples above you can look at the [reference TypeScript project](https://github.com/t1agob/safe-merkel-trees/tree/main/src). All the examples are covered through Unit Tests in `index.test.ts`. 
